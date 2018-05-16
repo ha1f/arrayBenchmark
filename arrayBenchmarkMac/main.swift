@@ -15,6 +15,12 @@ extension Array {
         }
     }
     
+    mutating func showData() {
+        self.withUnsafeMutableBytes { pointer in
+            print(pointer.makeIterator().map { $0 })
+        }
+    }
+    
     func showWithPointer(count: Int) {
         self.withUnsafeBufferPointer { pointer in
             let seed = pointer.baseAddress?.advanced(by: count)
@@ -29,7 +35,18 @@ extension Array {
     }
 }
 
-func printIntervals() {
+func printRemoveIntervals() {
+    var array: [Int] = [Int](repeating: 0, count: 100000)
+    var previous = Date()
+    while !array.isEmpty {
+        array.remove(at: 0)
+        let now = Date()
+        print(now.timeIntervalSince(previous))
+        previous = now
+    }
+}
+
+func printAppendIntervals() {
     var array: [Int] = []
     var previous = Date()
     for _ in 0..<1048580 {
@@ -107,8 +124,11 @@ func removeArray() {
     array.showLastAddress()
 }
 
-// removeArray()
-// printPoints()
-insertArray()
+func boolArray() {
+    var array: [Bool] = (0..<100).map { $0 % 2 == 0 ? true : false }
+    array.showData()
+}
+
+printRemoveIntervals()
 
 

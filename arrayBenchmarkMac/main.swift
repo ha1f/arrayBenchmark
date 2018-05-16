@@ -9,7 +9,7 @@
 import Foundation
 
 extension Array {
-    func printAddress() {
+    func showFirstAddress() {
         self.withUnsafeBufferPointer { pointer in
             print(pointer.baseAddress)
         }
@@ -22,7 +22,7 @@ extension Array {
         }
     }
     
-    func showLastPointer() {
+    func showLastAddress() {
         self.withUnsafeBufferPointer { pointer in
             print(pointer.baseAddress?.advanced(by: pointer.endIndex).predecessor())
         }
@@ -65,29 +65,50 @@ func replaceLetArray() {
     print(pointer.advanced(by: 50).pointee)
 }
 
+func insertArray() {
+    var array: [Int] = (0..<100).map { $0 }
+    
+    array.showFirstAddress()
+    array.showWithPointer(count: 50)
+    array.showLastAddress()
+    print()
+    
+    
+    array.insert(101, at: 20)
+    array.showFirstAddress()
+    array.showWithPointer(count: 50)
+    array.showLastAddress()
+    print()
+    
+    array.insert(-1, at: 0)
+    array.showFirstAddress()
+    array.showWithPointer(count: 50)
+    array.showLastAddress()
+}
 
 func removeArray() {
     var array: [Int] = (0..<100).map { $0 }
     
-    array.printAddress()
+    array.showFirstAddress()
     array.showWithPointer(count: 50)
-    array.showLastPointer()
+    array.showLastAddress()
     print()
     
     
     array.remove(at: 50)
-    array.printAddress()
+    array.showFirstAddress()
     array.showWithPointer(count: 50)
-    array.showLastPointer()
+    array.showLastAddress()
     print()
     
     array.remove(at: 20)
-    array.printAddress()
+    array.showFirstAddress()
     array.showWithPointer(count: 50)
-    array.showLastPointer()
+    array.showLastAddress()
 }
 
 // removeArray()
-printPoints()
+// printPoints()
+insertArray()
 
 
